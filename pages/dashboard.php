@@ -159,7 +159,7 @@ if (!$_SESSION['admin']) {
                         <span class="icon">
                             <ion-icon name="trash"></ion-icon>
                         </span>
-                        <span class="title">clients</span>
+                        <span class="title">Thèmes</span>
                     </a>
                 </li>
 
@@ -168,7 +168,7 @@ if (!$_SESSION['admin']) {
                         <span class="icon">
                             <ion-icon name="stats-chart"></ion-icon>
                         </span>
-                        <span class="title">Statistiques</span>
+                        <span class="title">Tags</span>
                     </a>
                 </li>
 
@@ -177,7 +177,7 @@ if (!$_SESSION['admin']) {
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <div>logout</div>
+                        <span class='title'>logout</div>
                     </a>
                 </li>
             </ul>
@@ -220,7 +220,8 @@ if (!$_SESSION['admin']) {
                     <div class="">
                         <h1>Gestion des plantes</h1>
 
-                        <form class="form" action="../includes/ajouter.inc.php" method="post" enctype="multipart/form-data">
+                        <form class="form" action="../includes/ajouter.inc.php" method="post"
+                            enctype="multipart/form-data">
                             <input name="nomPlante" type="text" placeholder="nom">
                             <input name="pricePlante" type="number" placeholder="prix">
                             <input name="imagePlante" type="file">
@@ -231,10 +232,12 @@ if (!$_SESSION['admin']) {
 
                                 while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
-                                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                                    ?>
+                                    <option value="<?php echo $row[0] ?>">
+                                        <?php echo $row[1] ?>
+                                    </option>
 
-                                <?php
+                                    <?php
                                 }
                                 ?>
                             </select>
@@ -271,31 +274,45 @@ if (!$_SESSION['admin']) {
                             <tbody style="text-align: center;">
 
                                 <?php
-                                $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";;
+                                $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";
+                                ;
                                 $request = mysqli_query($conn, $sql);
 
                                 while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
+                                    ?>
 
                                     <tr>
 
-                                        <td style="text-align: center;"><?php echo $row[0] ?></td>
-                                        <td style="text-align: center;"><?php echo $row[1] ?></td>
-                                        <td style="text-align: center;"><?php echo $row[2] ?></td>
                                         <td style="text-align: center;">
-                                            <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>" style="width: 200px; border-radius: 10px;">
+                                            <?php echo $row[0] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[1] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[2] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>"
+                                                style="width: 200px; border-radius: 10px;">
                                         </td>
 
-                                        <td style="text-align: center;"><?php echo $row[5] ?></td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[5] ?>
+                                        </td>
 
 
 
-                                        <td style="text-align: center;"><a class="btn btn-info" href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a></td>
+                                        <td style="text-align: center;"><a class="btn btn-info"
+                                                href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                                class="btn btn-danger"
+                                                href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                        </td>
 
                                     </tr>
 
-                                <?php
+                                    <?php
                                 }
                                 ?>
 
@@ -312,7 +329,7 @@ if (!$_SESSION['admin']) {
                 <div class="box">
                     <div class="">
                         <h1>Gestion des categories</h1>
-                        <form class="form" action="../includes/ajouterCateg.inc.php" method="post" >
+                        <form class="form" action="../includes/ajouterCateg.inc.php" method="post">
                             <input name="nomCateg" type="text" placeholder="nom">
                             <button class="btn btn-add" name="ajouterCateg">
                                 ajouter categorie
@@ -344,23 +361,118 @@ if (!$_SESSION['admin']) {
 
                                 while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
+                                    ?>
 
                                     <tr>
 
-                                        <td style="text-align: center;"><?php echo $row[0] ?></td>
-                                        <td style="text-align: center;"><?php echo $row[1] ?></td>
-                                        <td style="text-align: center;"><?php echo $row[2] ?></td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[0] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[1] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?php echo $row[2] ?>
+                                        </td>
 
 
 
 
 
-                                        <td style="text-align: center;"><a class="btn btn-info" href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a></td>
+                                        <td style="text-align: center;"><a class="btn btn-info"
+                                                href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                                class="btn btn-danger"
+                                                href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                        </td>
 
                                     </tr>
 
+                                    <?php
+                                }
+                                ?>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="details" id="themes">
+                <div class="box">
+                    <div class="">
+                        <h1>Gestion des thèmes</h1>
+                        <form class="form" action="../includes/ajouterTheme.inc.php" method="post"
+                            enctype="application/x-www-form-urlencoded">
+                            <input name="nomTheme" type="text" placeholder="Titre">
+                            <input name="imageTheme" type="file" placeholder="">
+                            <input name="descriptionTheme" type="text" placeholder="description">
+                            <button class="btn btn-add" name="ajouterTheme">
+                                ajouter thèmes
+                            </button>
+                        </form>
+                        <table class="table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Nom</th>
+
+                                    <!-- <th>nombre des articles/Thèmes</th> -->
+
+                                    <th>Image</th>
+
+                                    <th>Description</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody style="text-align: center;">
+
                                 <?php
+                                $sql = "SELECT *  from theme; ";
+                                $request = mysqli_query($conn, $sql);
+
+                                while ($row = mysqli_fetch_assoc($request)) {
+
+                                    ?>
+
+                                    <tr>
+
+                                        <td style="text-align: center;">
+                                            <?= $row['idTheme'] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?= $row['nomTheme'] ?>
+                                        </td>
+                                        <!-- <td style="text-align: center;"></td> -->
+                                        <td style="text-align: center;">
+                                         <img src="../uploads/<?php echo $row['imageTheme'] ?>" alt="<?php echo $row['imageTheme']; ?>" style="width: 200px; border-radius: 10px;">
+                                        
+                                        
+                                        
+            
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?= $row['descriptionTheme'] ?>
+                                        </td>
+
+
+
+                                        <td style="text-align: center;"><a class="btn btn-info"
+                                                href="./modifierTheme.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                                class="btn btn-danger"
+                                                href="../includes/deleteTheme.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                        </td>
+
+                                    </tr>
+
+                                    <?php
                                 }
                                 ?>
 
@@ -374,9 +486,9 @@ if (!$_SESSION['admin']) {
             <!-- =========== Scripts =========  -->
             <script src="../assets/js/main.js"></script>
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
+                document.addEventListener('DOMContentLoaded', function () {
                     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                        anchor.addEventListener('click', function(e) {
+                        anchor.addEventListener('click', function (e) {
                             e.preventDefault();
 
                             const targetId = this.getAttribute('href').substring(1);
