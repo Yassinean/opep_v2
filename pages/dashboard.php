@@ -168,7 +168,7 @@ if (!$_SESSION['admin']) {
                         <span class="icon">
                             <ion-icon name="stats-chart"></ion-icon>
                         </span>
-                        <span class="title">Statistiques</span>
+                        <span class="title">Tags</span>
                     </a>
                 </li>
 
