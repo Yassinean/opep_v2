@@ -515,7 +515,7 @@ ALTER TABLE `plante`
 -- Constraints for table `tag`
 --
 ALTER TABLE `tag`
-  ADD CONSTRAINT `themeFK` FOREIGN KEY (`themeID`) REFERENCES `tag` (`idTag`);
+  ADD CONSTRAINT `themeFK` FOREIGN KEY (`themeID`) REFERENCES `theme` (`idTheme`);
 
 --
 -- Constraints for table `utilisateur`
