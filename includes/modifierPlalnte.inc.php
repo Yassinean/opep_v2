@@ -22,8 +22,6 @@ if (isset($_POST['editPlante'])) {
     $img_upload_path = '../uploads/' . $new_img_name;
     move_uploaded_file($tmp_name, $img_upload_path);
 
-    // move_uploaded_file($tmp_name, $img_upload_path);
-    // echo "File moved to: " . $img_upload_path;
 
     if (empty($nomPlante) || empty($prixPlante)  || empty($catPlante)) {
         header("Location: ../pages/modifierPlante.php?error=emptyFields");
