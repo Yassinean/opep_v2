@@ -119,6 +119,7 @@ if (!$_SESSION['admin']) {
             margin: 10px 0 30px;
             /* font-size: ; */
         }
+       
     </style>
     <!-- =============== Navigation ================ -->
     <div class="container">
@@ -164,7 +165,7 @@ if (!$_SESSION['admin']) {
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#tags">
                         <span class="icon">
                             <ion-icon name="stats-chart"></ion-icon>
                         </span>
@@ -481,6 +482,97 @@ if (!$_SESSION['admin']) {
                         </table>
                     </div>
                 </div>
+            </div>
+            <div id = 'tags'>
+                <h1>Gestion des tags</h1>
+                <div class="">
+                        
+                        <form class="form" action="../includes/ajouttag.php" method="post">
+                            <input name="tagName" type="text" placeholder="nom de tag">
+                            
+                            <select name="themeTag" id="">
+                                <?php
+                                $sql = 'SELECT * from theme';
+                                $req = mysqli_query($conn,$sql);
+                                while($row = mysqli_fetch_row($req)){
+
+                                    ?>
+
+                                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+
+                               <?php     
+                                }
+
+                                ?>
+                             
+                            </select>
+                            <button class="btn btn-add" name="ajouterTag">
+                                ajouter le tag
+                            </button>
+                        </form>
+                        <table class="table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Nom</th>
+
+                                    <!-- <th>nombre des articles/Thèmes</th> -->
+
+                                    <th>theme</th>
+
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody style="text-align: center;">
+
+                                <?php
+                                $sql = "SELECT *  from tag join theme where tag.themeID = theme.	idTheme ; ";
+                                $request = mysqli_query($conn, $sql);
+
+                                while ($row = mysqli_fetch_row($request)) {
+
+                                    ?>
+
+                                    <tr>
+
+                                        <td style="text-align: center;">
+                                            <?= $row['0'] ?>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <?= $row['1'] ?>
+                                        </td>
+                                        <!-- <td style="text-align: center;"></td> -->
+                                        <td style="text-align: center;">
+                                         <?= $row['4'] ?>
+                                        </td>
+                                        
+
+
+
+                                        <td style="text-align: center;"><a class="btn btn-info"
+                                                href="./modifierTags.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                                class="btn btn-danger"
+                                                href="../includes/deleteTheme.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                        </td>
+
+                                    </tr>
+
+                                    <?php
+                                }
+                                ?>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+
+
             </div>
 
             <!-- =========== Scripts =========  -->
