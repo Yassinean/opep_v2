@@ -156,7 +156,7 @@ if (!$_SESSION['admin']) {
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="#themes">
                         <span class="icon">
                             <ion-icon name="trash"></ion-icon>
                         </span>
@@ -178,101 +178,65 @@ if (!$_SESSION['admin']) {
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class='title'>logout</div>
-                    </a>
-                </li>
-            </ul>
+                        <span class='title'>logout
         </div>
+        </a>
+        </li>
+        </ul>
+    </div>
 
-        <!-- ========================= Main ==================== -->
-        <div class="main">
-            <div class="topbar">
-                <div class="toggle">
-                    <ion-icon name="menu-outline"></ion-icon>
-                </div>
-
-                <div class="search">
-                    <label>
-                        <input type="text" placeholder="Search here">
-                        <ion-icon name="search-outline"></ion-icon>
-
-                    </label>
-                </div>
-
-                <div>
-                    <?php
-                    if (isset($_SESSION["name"])) {
-
-                        echo "Hello " . $_SESSION["name"];
-                    }
-
-                    ?>
-                </div>
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+        <div class="topbar">
+            <div class="toggle">
+                <ion-icon name="menu-outline"></ion-icon>
             </div>
 
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Search here">
+                    <ion-icon name="search-outline"></ion-icon>
 
-            <!-- ======================= Cards ================== -->
+                </label>
+            </div>
+
+            <div>
+                <?php
+                if (isset($_SESSION["name"])) {
+
+                    echo "Hello " . $_SESSION["name"];
+                }
+
+                ?>
+            </div>
+        </div>
 
 
-            <!-- ================ Order Details List ================= -->
+        <!-- ======================= Cards ================== -->
 
-            <div class="details" id="plantes">
-                <div class="box">
-                    <div class="">
-                        <h1>Gestion des plantes</h1>
 
-                        <form class="form" action="../includes/ajouter.inc.php" method="post"
-                            enctype="multipart/form-data">
-                            <input name="nomPlante" type="text" placeholder="nom">
-                            <input name="pricePlante" type="number" placeholder="prix">
-                            <input name="imagePlante" type="file">
-                            <select name="catPlante" id="">
-                                <?php
-                                $sql = "select * from categorie ;";
-                                $request = mysqli_query($conn, $sql);
+        <!-- ================ Order Details List ================= -->
 
-                                while ($row = mysqli_fetch_row($request)) {
+        <div class="details" id="plantes">
+            <div class="box">
+                <div class="">
+                    <h1>Gestion des plantes</h1>
 
-                                    ?>
-                                    <option value="<?php echo $row[0] ?>">
-                                        <?php echo $row[1] ?>
-                                    </option>
+                    <form class="form" action="../includes/ajouter.inc.php" method="post" enctype="multipart/form-data">
+                        <input name="nomPlante" type="text" placeholder="nom">
+                        <input name="pricePlante" type="number" placeholder="prix">
+                        <input name="imagePlante" type="file">
+                        <select name="catPlante" id="">
+                            <?php
+                            $sql = "select * from categorie ;";
+                            $request = mysqli_query($conn, $sql);
 
-                                    <?php
-                                }
+                            while ($row = mysqli_fetch_row($request)) {
+
                                 ?>
-                            </select>
-                            <button class="btn btn-add" name="ajouterPlante">
-                                ajouter plante
-                            </button>
-                        </form>
-
-
-
-
-                        <table class="table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>ID</th>
-
-                                    <th>nom</th>
-
-                                    <th>prix</th>
-
-                                    <th>image</th>
-
-                                    <th>categorie</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody style="text-align: center;">
+                                <option value="<?php echo $row[0] ?>">
+                                    <?php echo $row[1] ?>
+                                </option>
 
                                 <?php
                                 $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";
@@ -592,13 +556,276 @@ if (!$_SESSION['admin']) {
                                     behavior: 'smooth'
                                 });
                             }
-                        });
+                            ?>
+                        </select>
+                        <button class="btn btn-add" name="ajouterPlante">
+                            ajouter plante
+                        </button>
+                    </form>
+
+
+
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>nom</th>
+
+                                <th>prix</th>
+
+                                <th>image</th>
+
+                                <th>categorie</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody style="text-align: center;">
+
+                            <?php
+                            $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";
+                            ;
+                            $request = mysqli_query($conn, $sql);
+
+                            while ($row = mysqli_fetch_row($request)) {
+
+                                ?>
+
+                                <tr>
+
+                                    <td style="text-align: center;">
+                                        <?php echo $row[0] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php echo $row[1] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php echo $row[2] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>"
+                                            style="width: 200px; border-radius: 10px;">
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <?php echo $row[5] ?>
+                                    </td>
+
+
+
+                                    <td style="text-align: center;"><a class="btn btn-info"
+                                            href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                            class="btn btn-danger"
+                                            href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    </td>
+
+                                </tr>
+
+                                <?php
+                            }
+                            ?>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= New Customers ================ -->
+
+        </div>
+        <div class="details" id="categories">
+            <div class="box">
+                <div class="">
+                    <h1>Gestion des categories</h1>
+                    <form class="form" action="../includes/ajouterCateg.inc.php" method="post">
+                        <input name="nomCateg" type="text" placeholder="nom">
+                        <button class="btn btn-add" name="ajouterCateg">
+                            ajouter categorie
+                        </button>
+                    </form>
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>nom</th>
+
+                                <th>nombre des plantes</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody style="text-align: center;">
+
+                            <?php
+                            $sql = "SELECT categorie.*, COUNT(plante.idPlante) AS plantCount FROM categorie LEFT JOIN plante ON categorie.idCategorie = plante.idCategorie GROUP BY categorie.idCategorie;";
+                            $request = mysqli_query($conn, $sql);
+
+                            while ($row = mysqli_fetch_row($request)) {
+
+                                ?>
+
+                                <tr>
+
+                                    <td style="text-align: center;">
+                                        <?php echo $row[0] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php echo $row[1] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?php echo $row[2] ?>
+                                    </td>
+
+
+
+
+
+                                    <td style="text-align: center;"><a class="btn btn-info"
+                                            href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
+                                            class="btn btn-danger"
+                                            href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    </td>
+
+                                </tr>
+
+                                <?php
+                            }
+                            ?>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="details" id="themes">
+            <div class="box">
+                <div class="">
+                    <h1>Gestion des thèmes</h1>
+                    <form class="form" action="../includes/ajouterTheme.inc.php" method="post"
+                        enctype="multipart/form-data">
+                        <input name="nomTheme" type="text" placeholder="Titre">
+                        <input name="imageTheme" type="file" placeholder="">
+                        <input name="descriptionTheme" type="text" placeholder="description">
+                        <button class="btn btn-add" name="ajouterTheme">
+                            ajouter thèmes
+                        </button>
+                    </form>
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Nom</th>
+
+                                <!-- <th>nombre des articles/Thèmes</th> -->
+
+                                <th>Image</th>
+
+                                <th>Description</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody style="text-align: center;">
+
+                            <?php
+                            $sql = "SELECT *  from theme; ";
+                            $request = mysqli_query($conn, $sql);
+
+                            while ($row = mysqli_fetch_assoc($request)) {
+
+                                ?>
+
+                                <tr>
+
+                                    <td style="text-align: center;">
+                                        <?= $row['idTheme'] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?= $row['nomTheme'] ?>
+                                    </td>
+                                    <!-- <td style="text-align: center;"></td> -->
+                                    <td style="text-align: center;">
+                                        <img src="../uploads/<?php echo $row['imageTheme'] ?>"
+                                            alt="<?php echo $row['imageTheme']; ?>"
+                                            style="width: 200px; border-radius: 10px;">
+
+
+
+
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?= $row['descriptionTheme'] ?>
+                                    </td>
+
+
+
+                                    <td style="text-align: center;"><a class="btn btn-info"
+                                            href="./modifierTheme.php?id=<?php echo $row['idTheme']; ?>">modifier</a>&nbsp;
+                                        <a class="btn btn-danger"
+                                            href="../includes/deleteTheme.inc.php?id=<?php echo $row['idTheme']; ?>">supprimer</a>
+                                    </td>
+
+                                </tr>
+
+                                <?php
+                            }
+                            ?>
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========== Scripts =========  -->
+        <script src="../assets/js/main.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 0, // Adjust the offset as needed
+                                behavior: 'smooth'
+                            });
+                        }
                     });
                 });
-            </script>
-            <!-- ====== ionicons ======= -->
-            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-            <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+            });
+        </script>
+        <!-- ====== ionicons ======= -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
