@@ -1,9 +1,12 @@
 <?php
 session_start();
 require "../includes/dbh.inc.php";
-if(!$_GET['id']){
+
+if (!isset($_GET['id'])) {
     header("Location: ../pages/dashboard.php");
+    exit();
 }
+
 $id = $_GET['id'];
 ?>
 <!DOCTYPE html>
@@ -13,7 +16,7 @@ $id = $_GET['id'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Admin Dashboard | Korsat X Parmaga</title>
+    <title>Opep</title>
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -205,50 +208,49 @@ $id = $_GET['id'];
                 <div class="box">
                     <div class="">
                         <?php
-                            $sql = "SELECT * FROM tag join theme  WHERE tag.themeID = theme.	idTheme AND idTag = '$id';";
-                            $request = mysqli_query($conn, $sql);
-                            $row = mysqli_fetch_row($request)
-                            
-                            ?>
+                        $sql = "SELECT * FROM tag join theme  WHERE tag.themeID = theme.idTheme AND idTag = '$id';";
+                        $request = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_row($request)
+
+                        ?>
                         <h1>modifier le tag <?php echo $row['1'] ?></h1> <br>
                         <form class="form" action="" method="post" id="editForm">
-                            
-                              <input required name="nomTagEdit" type="text" placeholder="nom" value="<?php echo $row['1'] ?>">
-                                <select name = 'NewTheme'>
 
-                                 <option value="<?php echo $row['3'] ?>"><?php echo $row['4'] ?></option>
-                              <?php
+                            <input required name="nomTagEdit" type="text" placeholder="nom" value="<?php echo $row['1'] ?>">
+                            <select name='NewTheme'>
+
+                                <option value="<?php echo $row['3'] ?>"><?php echo $row['4'] ?></option>
+                                <?php
                                 $sql1 = "SELECT * FROM theme;";
                                 $request1 = mysqli_query($conn, $sql1);
-                                while($row1 = mysqli_fetch_row($request1)){
-                              ?>
-                                
+                                while ($row1 = mysqli_fetch_row($request1)) {
+                                ?>
+
                                     <option value="<?php echo $row1['0'] ?>"><?php echo $row1['1'] ?></option>
 
 
                                 <?php
                                 }
                                 ?>
-                                </select>
-                                
-                                <button class="btn btn-add" name="editTag">
-                                    modifier categorie
-                                </button>
-                           
+                            </select>
+
+                            <button class="btn btn-add" name="editTag">
+                                modifier tag
+                            </button>
+
                         </form>
                         <?php
-                        if(isset($_POST['editTag'])){
-                            $newNameTage = $_POST['nomTagEdit'];
-                            $NewTheme = $_POST['NewTheme'];
-                            echo $newNameTage;
-                            echo $NewTheme;
-                            $sql = "UPDATE tag set textTag = '$newNameTage',themeID = $NewTheme where idTag = $id ";
-                            $req = mysqli_query($conn,$sql);
-                            
+                        if (isset($_POST['editTag'])) {
+                            $newNameTag = $_POST['nomTagEdit'];
+                            $newTheme = $_POST['NewTheme'];
 
+                            $sql = "UPDATE tag SET textTag = '$newNameTag', themeID = $newTheme WHERE idTag = $id";
+                            $req = mysqli_query($conn, $sql);
 
+                            echo "<script>window.location.href = '../pages/dashboard.php';</script>";
                         }
                         ?>
+
 
 
 
