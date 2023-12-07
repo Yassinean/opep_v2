@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 require "../includes/dbh.inc.php";
@@ -128,8 +127,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="./dashboard.php">
                         <span class="icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                            </ion-icon>
+                            <ion-icon name="rose-outline"></ion-icon>
                         </span>
                         <span class="title">O-PEP</span>
                     </a>
@@ -140,7 +138,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#plantes">
                         <span class="icon">
-                            <ion-icon name="add"></ion-icon>
+                            <ion-icon name="leaf-outline"></ion-icon>
                         </span>
                         <span class="title">plantes</span>
                     </a>
@@ -158,7 +156,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#themes">
                         <span class="icon">
-                            <ion-icon name="trash"></ion-icon>
+                            <ion-icon name="document-text-outline"></ion-icon>
                         </span>
                         <span class="title">Thèmes</span>
                     </a>
@@ -167,7 +165,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#tags">
                         <span class="icon">
-                            <ion-icon name="stats-chart"></ion-icon>
+                            <ion-icon name="bookmark-outline"></ion-icon>
                         </span>
                         <span class="title">Tags</span>
                     </a>
@@ -514,7 +512,7 @@ if (!$_SESSION['admin']) {
 
                                 <th>Nom</th>
 
-                                
+
                                 <th>theme</th>
                                 <th>action</th>
 
@@ -549,7 +547,7 @@ if (!$_SESSION['admin']) {
 
 
 
-                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierTags.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deleteTheme.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierTags.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deleteTag.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
                                     </td>
 
                                 </tr>
