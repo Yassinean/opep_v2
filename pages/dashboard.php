@@ -119,7 +119,6 @@ if (!$_SESSION['admin']) {
             margin: 10px 0 30px;
             /* font-size: ; */
         }
-       
     </style>
     <!-- =============== Navigation ================ -->
     <div class="container">
@@ -128,8 +127,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="./dashboard.php">
                         <span class="icon">
-                            <ion-icon name="leaf-outline"></ion-icon>
-                            </ion-icon>
+                            <ion-icon name="rose-outline"></ion-icon>
                         </span>
                         <span class="title">O-PEP</span>
                     </a>
@@ -140,7 +138,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#plantes">
                         <span class="icon">
-                            <ion-icon name="add"></ion-icon>
+                            <ion-icon name="leaf-outline"></ion-icon>
                         </span>
                         <span class="title">plantes</span>
                     </a>
@@ -158,7 +156,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#themes">
                         <span class="icon">
-                            <ion-icon name="trash"></ion-icon>
+                            <ion-icon name="document-text-outline"></ion-icon>
                         </span>
                         <span class="title">Thèmes</span>
                     </a>
@@ -167,7 +165,7 @@ if (!$_SESSION['admin']) {
                 <li>
                     <a href="#tags">
                         <span class="icon">
-                            <ion-icon name="stats-chart"></ion-icon>
+                            <ion-icon name="bookmark-outline"></ion-icon>
                         </span>
                         <span class="title">Tags</span>
                     </a>
@@ -233,328 +231,12 @@ if (!$_SESSION['admin']) {
 
                             while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
+                            ?>
                                 <option value="<?php echo $row[0] ?>">
                                     <?php echo $row[1] ?>
                                 </option>
 
-                                <?php
-                                $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";
-                                ;
-                                $request = mysqli_query($conn, $sql);
-
-                                while ($row = mysqli_fetch_row($request)) {
-
-                                    ?>
-
-                                    <tr>
-
-                                        <td style="text-align: center;">
-                                            <?php echo $row[0] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?php echo $row[1] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?php echo $row[2] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>"
-                                                style="width: 200px; border-radius: 10px;">
-                                        </td>
-
-                                        <td style="text-align: center;">
-                                            <?php echo $row[5] ?>
-                                        </td>
-
-
-
-                                        <td style="text-align: center;"><a class="btn btn-info"
-                                                href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                                class="btn btn-danger"
-                                                href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
-                                        </td>
-
-                                    </tr>
-
-                                    <?php
-                                }
-                                ?>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-
-                <!-- ================= New Customers ================ -->
-
-            </div>
-            <div class="details" id="categories">
-                <div class="box">
-                    <div class="">
-                        <h1>Gestion des categories</h1>
-                        <form class="form" action="../includes/ajouterCateg.inc.php" method="post">
-                            <input name="nomCateg" type="text" placeholder="nom">
-                            <button class="btn btn-add" name="ajouterCateg">
-                                ajouter categorie
-                            </button>
-                        </form>
-                        <table class="table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>ID</th>
-
-                                    <th>nom</th>
-
-                                    <th>nombre des plantes</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody style="text-align: center;">
-
-                                <?php
-                                $sql = "SELECT categorie.*, COUNT(plante.idPlante) AS plantCount FROM categorie LEFT JOIN plante ON categorie.idCategorie = plante.idCategorie GROUP BY categorie.idCategorie;";
-                                $request = mysqli_query($conn, $sql);
-
-                                while ($row = mysqli_fetch_row($request)) {
-
-                                    ?>
-
-                                    <tr>
-
-                                        <td style="text-align: center;">
-                                            <?php echo $row[0] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?php echo $row[1] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?php echo $row[2] ?>
-                                        </td>
-
-
-
-
-
-                                        <td style="text-align: center;"><a class="btn btn-info"
-                                                href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                                class="btn btn-danger"
-                                                href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
-                                        </td>
-
-                                    </tr>
-
-                                    <?php
-                                }
-                                ?>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="details" id="themes">
-                <div class="box">
-                    <div class="">
-                        <h1>Gestion des thèmes</h1>
-                        <form class="form" action="../includes/ajouterTheme.inc.php" method="post"
-                            enctype="application/x-www-form-urlencoded">
-                            <input name="nomTheme" type="text" placeholder="Titre">
-                            <input name="imageTheme" type="file" placeholder="">
-                            <input name="descriptionTheme" type="text" placeholder="description">
-                            <button class="btn btn-add" name="ajouterTheme">
-                                ajouter thèmes
-                            </button>
-                        </form>
-                        <table class="table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>ID</th>
-
-                                    <th>Nom</th>
-
-                                    <!-- <th>nombre des articles/Thèmes</th> -->
-
-                                    <th>Image</th>
-
-                                    <th>Description</th>
-
-                                    <th>Action</th>
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody style="text-align: center;">
-
-                                <?php
-                                $sql = "SELECT *  from theme; ";
-                                $request = mysqli_query($conn, $sql);
-
-                                while ($row = mysqli_fetch_assoc($request)) {
-
-                                    ?>
-
-                                    <tr>
-
-                                        <td style="text-align: center;">
-                                            <?= $row['idTheme'] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?= $row['nomTheme'] ?>
-                                        </td>
-                                        <!-- <td style="text-align: center;"></td> -->
-                                        <td style="text-align: center;">
-                                         <img src="../uploads/<?php echo $row['imageTheme'] ?>" alt="<?php echo $row['imageTheme']; ?>" style="width: 200px; border-radius: 10px;">
-                                        
-                                        
-                                        
-            
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?= $row['descriptionTheme'] ?>
-                                        </td>
-
-
-
-                                        <td style="text-align: center;"><a class="btn btn-info"
-                                                href="./modifierTheme.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                                class="btn btn-danger"
-                                                href="../includes/deleteTheme.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
-                                        </td>
-
-                                    </tr>
-
-                                    <?php
-                                }
-                                ?>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div id = 'tags'>
-                <h1>Gestion des tags</h1>
-                <div class="">
-                        
-                        <form class="form" action="../includes/ajouttag.php" method="post">
-                            <input name="tagName" type="text" placeholder="nom de tag">
-                            
-                            <select name="themeTag" id="">
-                                <?php
-                                $sql = 'SELECT * from theme';
-                                $req = mysqli_query($conn,$sql);
-                                while($row = mysqli_fetch_row($req)){
-
-                                    ?>
-
-                                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-
-                               <?php     
-                                }
-
-                                ?>
-                             
-                            </select>
-                            <button class="btn btn-add" name="ajouterTag">
-                                ajouter le tag
-                            </button>
-                        </form>
-                        <table class="table">
-
-                            <thead>
-
-                                <tr>
-
-                                    <th>ID</th>
-
-                                    <th>Nom</th>
-
-                                    <!-- <th>nombre des articles/Thèmes</th> -->
-
-                                    <th>theme</th>
-
-
-                                </tr>
-
-                            </thead>
-
-                            <tbody style="text-align: center;">
-
-                                <?php
-                                $sql = "SELECT *  from tag join theme where tag.themeID = theme.	idTheme ; ";
-                                $request = mysqli_query($conn, $sql);
-
-                                while ($row = mysqli_fetch_row($request)) {
-
-                                    ?>
-
-                                    <tr>
-
-                                        <td style="text-align: center;">
-                                            <?= $row['0'] ?>
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <?= $row['1'] ?>
-                                        </td>
-                                        <!-- <td style="text-align: center;"></td> -->
-                                        <td style="text-align: center;">
-                                         <?= $row['4'] ?>
-                                        </td>
-                                        
-
-
-
-                                        <td style="text-align: center;"><a class="btn btn-info"
-                                                href="./modifierTags.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                                class="btn btn-danger"
-                                                href="../includes/deleteTheme.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
-                                        </td>
-
-                                    </tr>
-
-                                    <?php
-                                }
-                                ?>
-
-                            </tbody>
-
-                        </table>
-                    </div>
-
-
-            </div>
-
-            <!-- =========== Scripts =========  -->
-            <script src="../assets/js/main.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                        anchor.addEventListener('click', function (e) {
-                            e.preventDefault();
-
-                            const targetId = this.getAttribute('href').substring(1);
-                            const targetElement = document.getElementById(targetId);
-
-                            if (targetElement) {
-                                window.scrollTo({
-                                    top: targetElement.offsetTop - 0, // Adjust the offset as needed
-                                    behavior: 'smooth'
-                                });
+                            <?php
                             }
                             ?>
                         </select>
@@ -591,13 +273,12 @@ if (!$_SESSION['admin']) {
                         <tbody style="text-align: center;">
 
                             <?php
-                            $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";
-                            ;
+                            $sql = "SELECT plante.*, categorie.nomCateorie FROM plante JOIN categorie ON plante.idCategorie = categorie.idCategorie";;
                             $request = mysqli_query($conn, $sql);
 
                             while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
+                            ?>
 
                                 <tr>
 
@@ -611,8 +292,7 @@ if (!$_SESSION['admin']) {
                                         <?php echo $row[2] ?>
                                     </td>
                                     <td style="text-align: center;">
-                                        <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>"
-                                            style="width: 200px; border-radius: 10px;">
+                                        <img src="../uploads/<?php echo $row[3] ?>" alt="<?php echo $row[3]; ?>" style="width: 200px; border-radius: 10px;">
                                     </td>
 
                                     <td style="text-align: center;">
@@ -621,15 +301,12 @@ if (!$_SESSION['admin']) {
 
 
 
-                                    <td style="text-align: center;"><a class="btn btn-info"
-                                            href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                            class="btn btn-danger"
-                                            href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierPlante.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deletePlante.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
                                     </td>
 
                                 </tr>
 
-                                <?php
+                            <?php
                             }
                             ?>
 
@@ -678,7 +355,7 @@ if (!$_SESSION['admin']) {
 
                             while ($row = mysqli_fetch_row($request)) {
 
-                                ?>
+                            ?>
 
                                 <tr>
 
@@ -696,15 +373,12 @@ if (!$_SESSION['admin']) {
 
 
 
-                                    <td style="text-align: center;"><a class="btn btn-info"
-                                            href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a
-                                            class="btn btn-danger"
-                                            href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierCateg.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deleteCateg.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
                                     </td>
 
                                 </tr>
 
-                                <?php
+                            <?php
                             }
                             ?>
 
@@ -718,8 +392,7 @@ if (!$_SESSION['admin']) {
             <div class="box">
                 <div class="">
                     <h1>Gestion des thèmes</h1>
-                    <form class="form" action="../includes/ajouterTheme.inc.php" method="post"
-                        enctype="multipart/form-data">
+                    <form class="form" action="../includes/ajouterTheme.inc.php" method="post" enctype="multipart/form-data">
                         <input name="nomTheme" type="text" placeholder="Titre">
                         <input name="imageTheme" type="file" placeholder="">
                         <input name="descriptionTheme" type="text" placeholder="description">
@@ -757,7 +430,7 @@ if (!$_SESSION['admin']) {
 
                             while ($row = mysqli_fetch_assoc($request)) {
 
-                                ?>
+                            ?>
 
                                 <tr>
 
@@ -769,9 +442,7 @@ if (!$_SESSION['admin']) {
                                     </td>
                                     <!-- <td style="text-align: center;"></td> -->
                                     <td style="text-align: center;">
-                                        <img src="../uploads/<?php echo $row['imageTheme'] ?>"
-                                            alt="<?php echo $row['imageTheme']; ?>"
-                                            style="width: 200px; border-radius: 10px;">
+                                        <img src="../uploads/<?php echo $row['imageTheme'] ?>" alt="<?php echo $row['imageTheme']; ?>" style="width: 200px; border-radius: 10px;">
 
 
 
@@ -783,15 +454,13 @@ if (!$_SESSION['admin']) {
 
 
 
-                                    <td style="text-align: center;"><a class="btn btn-info"
-                                            href="./modifierTheme.php?id=<?php echo $row['idTheme']; ?>">modifier</a>&nbsp;
-                                        <a class="btn btn-danger"
-                                            href="../includes/deleteTheme.inc.php?id=<?php echo $row['idTheme']; ?>">supprimer</a>
+                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierTheme.php?id=<?php echo $row['idTheme']; ?>">modifier</a>&nbsp;
+                                        <a class="btn btn-danger" href="../includes/deleteTheme.inc.php?id=<?php echo $row['idTheme']; ?>">supprimer</a>
                                     </td>
 
                                 </tr>
 
-                                <?php
+                            <?php
                             }
                             ?>
 
@@ -802,30 +471,125 @@ if (!$_SESSION['admin']) {
             </div>
         </div>
 
-        <!-- =========== Scripts =========  -->
-        <script src="../assets/js/main.js"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
 
-                        const targetId = this.getAttribute('href').substring(1);
-                        const targetElement = document.getElementById(targetId);
 
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 0, // Adjust the offset as needed
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
+        <div class="details" id='tags'>
+            <div class="box">
+
+                <div class="">
+                    <h1>Gestion des tags</h1>
+
+                    <form class="form" action="../includes/ajouttag.php" method="post">
+                        <input name="tagName" type="text" placeholder="nom de tag">
+
+                        <select name="themeTag" id="">
+                            <?php
+                            $sql = 'SELECT * from theme';
+                            $req = mysqli_query($conn, $sql);
+                            while ($row = mysqli_fetch_row($req)) {
+
+                            ?>
+
+                                <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+
+                            <?php
+                            }
+
+                            ?>
+
+                        </select>
+                        <button class="btn btn-add" name="ajouterTag">
+                            ajouter le tag
+                        </button>
+                    </form>
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Nom</th>
+
+
+                                <th>theme</th>
+                                <th>action</th>
+
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody style="text-align: center;">
+
+                            <?php
+                            $sql = "SELECT *  from tag join theme where tag.themeID = theme.	idTheme ; ";
+                            $request = mysqli_query($conn, $sql);
+
+                            while ($row = mysqli_fetch_row($request)) {
+
+                            ?>
+
+                                <tr>
+
+                                    <td style="text-align: center;">
+                                        <?= $row['0'] ?>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <?= $row['1'] ?>
+                                    </td>
+                                    <!-- <td style="text-align: center;"></td> -->
+                                    <td style="text-align: center;">
+                                        <?= $row['4'] ?>
+                                    </td>
+
+
+
+
+                                    <td style="text-align: center;"><a class="btn btn-info" href="./modifierTags.php?id=<?php echo $row[0]; ?>">modifier</a>&nbsp;<a class="btn btn-danger" href="../includes/deleteTag.inc.php?id=<?php echo $row[0]; ?>">supprimer</a>
+                                    </td>
+
+                                </tr>
+
+                            <?php
+                            }
+                            ?>
+
+                        </tbody>
+
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 0, // Adjust the offset as needed
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
-        </script>
-        <!-- ====== ionicons ======= -->
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        });
+    </script>
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>
