@@ -64,8 +64,6 @@ if (isset($_POST["role-submit"])) {
                     mysqli_stmt_bind_param($stmt2, "i", $id);
                     mysqli_stmt_execute($stmt2);
                     mysqli_stmt_close($stmt2);
-                    session_start();
-                    $_SESSION["admin"] = "admin";
 
                     header("Location: ../pages/index.php");
                     exit();

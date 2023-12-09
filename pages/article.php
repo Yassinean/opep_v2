@@ -1,6 +1,11 @@
 <?php
 require "../includes/dbh.inc.php";
 session_start();
+if (!empty($_SESSION['userid'])) {
+    $userid = $_SESSION['userid'];
+}
+
+
 //    if($_SESSION['statut'] != 'client'){
 //         header("Location: ../pages/index.php");
 //    }
@@ -8,10 +13,13 @@ if (!$_GET['id']) {
     header("Location: ../pages/blog.php");
 }
 $idtheme = $_GET['id'];
-$sql = "SELECT DISTINCT(article.titreArticle),article.*, theme.* from article JOIN articletag JOIN tag JOIN theme WHERE articletag.ArticleID = article.idArticle AND articletag.tagID = tag.idTag AND tag.themeID = theme.idTheme AND theme.idTheme = $idtheme";
+$sql = "SELECT DISTINCT(article.titreArticle),article.*, theme.* from article JOIN articletag JOIN tag JOIN theme WHERE articletag.ArticleID = article.idArticle AND articletag.tagID = tag.idTag AND tag.themeID = theme.idTheme AND theme.idTheme = $idtheme ";
 $req = mysqli_query($conn, $sql);
 
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,17 +54,17 @@ $req = mysqli_query($conn, $sql);
     <title>Blog</title>
 </head>
 
-<body>
-    <header class='p-2 bg-slate-100 relative'>
+<body class=" bg-white dark:bg-slate-600">
+    <header class='p-2 bg-slate-100 relative bg-white dark:bg-slate-600'>
 
 
-        <div class="flex">
+        <div class="flex ">
             <div class=" w-4/5 ">
                 <nav class=' flex justify-between items-center p-5 w-full m-auto'>
                     <img class="w-20" src="../images/logo.webp" alt="">
                     <ul class='flex justify-center items-center'>
-                        <a href="#" class='mx-2 ease-in duration-300 hover:bg-stone-100 hover:text-black bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium'>Accueil</a>
-                        <a href="#" class='ease-in duration-300 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>Store</a>
+                        <a href="./blog.php" class='mx-2 ease-in duration-300 hover:bg-stone-100 hover:text-black bg-gray-700 text-white rounded-md px-3 py-2 text-sm font-medium'>Accueil</a>
+                        <a href="./index.php" class='ease-in duration-300 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium'>Store</a>
                     </ul>
                     <div class="flex justify-center items-center">
                         <button onclick="Openpop()" type="submit" class="px-4 py-2 rounded-lg hover:bg-green-900 mx-2 bg-green-600 mb-2 text-sm font-medium text-gray-900 dark:text-white">&#43; Article</button>
@@ -66,8 +74,17 @@ $req = mysqli_query($conn, $sql);
                             </div>
                             <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl ">Ajouter un article</h1>
 
+                            <?php
+                            // $getID = "";
+                            // $ToGetId = mysqli_query($conn, $getID);
 
-                            <form class="max-w-sm mx-auto" method="post" action="" enctype="multipart/form-data">
+                            // while ($row = mysqli_fetch_row($ToGetId)) {
+                            ?>
+
+                            <?php
+                            // }
+                            ?>
+                            <form class="max-w-sm mx-auto" method="post" action="./article.php?id=<?php echo $idtheme; ?>" enctype="multipart/form-data">
                                 <div class="mb-5">
 
                                     <label for="titre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Image</label>
@@ -84,7 +101,7 @@ $req = mysqli_query($conn, $sql);
                                 </div>
                                 <div class="mb-5 grid grid-cols-1 md:grid-cols-2 gap-4  m-auto ">
                                     <?php
-                                    $sql2 = "SELECT * from tag where themeID = $idtheme";
+                                    $sql2 = "select * from tag where themeID = $idtheme";
                                     $req2 = mysqli_query($conn, $sql2);
 
                                     while ($tag_forA = mysqli_fetch_row($req2)) {
@@ -115,14 +132,15 @@ $req = mysqli_query($conn, $sql);
                                     $new_name = uniqid("IMG", true) . '.' . $image_extention;
                                     $img_upload_path = '../uploads/' . $new_name;
                                     move_uploaded_file($tmp_name, $img_upload_path);
-                                    $sql1 = "INSERT INTO article VALUES(NULL,'$text','$titre','$new_name',1)";
+                                    $sql1 = "INSERT INTO article VALUES(NULL,'$text','$titre','$new_name','$userid')";
                                     $req1 = mysqli_query($conn, $sql1);
                                     $lastInsertedID = mysqli_insert_id($conn);
+
                                     foreach ($tags as $tag) {
                                         $sql2 = "INSERT INTO articletag VALUES(NULL,'$tag','$lastInsertedID')";
                                         $req2 = mysqli_query($conn, $sql2);
                                     }
-                                    header('Location: article.php?id=' . $idtheme);
+                                    header('Location: http://www.google.com/');
                                 }
 
                                 ?>
@@ -138,8 +156,19 @@ $req = mysqli_query($conn, $sql);
                     </div>
 
                 </nav>
-                <div class=' my-5  h-3/4 text-center'>
-                    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Bienvenue dans le theme allo </h1>
+
+
+
+                <div class=' my-5  h-3/4 text-center   '>
+                    <h1 class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-white">Bienvenue dans le theme
+                        <?php
+                        $theme = "SELECT * from theme where theme.idTheme = $idtheme ";
+                        $nomTheme = mysqli_query($conn, $theme);
+                        while ($row = mysqli_fetch_assoc($nomTheme)) {
+                            echo $row['nomTheme'];
+                        }
+                        ?>
+                    </h1>
                     <p class="px-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit earum voluptates quae, amet deleniti totam culpa qui adipisci repellat quo necessitatibus molestias enim quis, labore rem porro, et doloremque ad.</p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-4/5 m-auto my-5">
 
@@ -169,8 +198,12 @@ $req = mysqli_query($conn, $sql);
                                                                                                         }
                                                                                                         echo '.....';
                                                                                                     }
+
+
+
+
                                                                                                     ?></p>
-                                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <a href="./blogarticle.php?idArticle=<?php echo $row[1] ?>" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         Read more
                                         <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
@@ -184,7 +217,23 @@ $req = mysqli_query($conn, $sql);
                         }
                         ?>
 
+
+
+
+
+
+
+
                     </div>
+
+
+
+
+
+
+
+
+
 
                 </div>
 
