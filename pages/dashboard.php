@@ -177,6 +177,10 @@ if (!$_SESSION['admin']) {
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
                         <span class='title'>logout
+                            <?php
+                            // echo "<pre>";
+                            // print_r($_SESSION);
+                            // echo "</pre>"; ?>
         </div>
         </a>
         </li>

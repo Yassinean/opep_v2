@@ -41,7 +41,7 @@ if (isset($_POST["login-submit"])) {
                         session_start();
                         $_SESSION["panierId"] = $idP;
                         $_SESSION["client"] = "client";
-                        $_SESSION["idUser"] = $row["idUser"];
+                        $_SESSION["userid"] = $row["idUser"];
                         $_SESSION["useremail"] = $row["email"];
 
                         header("Location: ../pages/index.php");

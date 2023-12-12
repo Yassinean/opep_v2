@@ -94,11 +94,6 @@ if (!$_SESSION['client']) {
 </style>
 <main class="dark">
     <div class="container x ">
-
-
-
-
-
         <div class="left ">
             <h1> Filter by Color </h1>
             <form action="./index.php" class="forms" method="post">
